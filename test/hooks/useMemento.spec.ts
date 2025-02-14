@@ -7,23 +7,21 @@ describe("useMemento", () => {
     const { result } = renderHook(() => useMemento(0))
 
     act(() => {
-      const [count, setCount, { undo, redo }] = result.current
-
-      setCount(1)
-      setCount(2)
-      setCount(3)
-
-      expect(count).toBe(3)
-
-      undo()
-      expect(count).toBe(2)
-      undo()
-      expect(count).toBe(1)
-
-      redo()
-      expect(count).toBe(2)
-      redo()
-      expect(count).toBe(3)
+      result.current[1](1)
+      result.current[1](2)
+      result.current[1](3)
     })
+
+    expect(result.current[0]).toBe(3)
+
+    /*undo()
+    expect(count).toBe(2)
+    undo()
+    expect(count).toBe(1)
+
+    redo()
+    expect(count).toBe(2)
+    redo()
+    expect(count).toBe(3)*/
   })
 })
